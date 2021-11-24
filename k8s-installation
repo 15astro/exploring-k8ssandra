@@ -1,6 +1,6 @@
 https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-kubectl-binary-with-curl-on-macos
 
-Install kubectl binary with curl on macOS 
+## Install kubectl binary with curl on macOS 
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
 
 Validate the binary (optional)
@@ -20,7 +20,7 @@ sudo chown root: /usr/local/bin/kubectl
 Test to ensure the version you installed is up-to-date:
 kubectl version --client
 
-Configure the K8ssandra Helm repository:
+## Configure the K8ssandra Helm repository:
 
 Install Helm:
 brew install helm
