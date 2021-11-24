@@ -1,0 +1,38 @@
+https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-kubectl-binary-with-curl-on-macos
+
+Install kubectl binary with curl on macOS 
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+
+Validate the binary (optional)
+Download the kubectl checksum file:
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
+
+Validate the kubectl binary against the checksum file:
+echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+
+Make the kubectl binary executable:
+chmod +x ./kubectl
+
+Move the kubectl binary to a file location on your system PATH:
+sudo mv ./kubectl /usr/local/bin/kubectl
+sudo chown root: /usr/local/bin/kubectl
+
+Test to ensure the version you installed is up-to-date:
+kubectl version --client
+
+Configure the K8ssandra Helm repository:
+
+Install Helm:
+brew install helm
+
+Add the main K8ssandra stable Helm chart repo:
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
+
+To access K8ssandra services from outside of the Kubernetes cluster, also add the Traefik Ingress repo:
+helm repo add traefik https://helm.traefik.io/traefik
+
+Update your helm repository listing:
+helm repo update
+
+
+
