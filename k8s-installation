@@ -34,5 +34,18 @@ helm repo add traefik https://helm.traefik.io/traefik
 Update your helm repository listing:
 helm repo update
 
+Start k8ssandra:
 
+helm install -f k8ssandra.yaml k8ssandra k8ssandra/k8ssandra
 
+Verify installation:
+kubectl get pods
+kubectl get cassandradatacenters
+kubectl describe CassandraDataCenter dc1 | grep "Cassandra Operator Progress:"
+kubectl get services
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.username}" | base64 --decode ; echo
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.password}" | base64 --decode ; echo
+
+Delete helm release:
+helm delete -n my-namespace my-release
+helm delete k8ssandra
