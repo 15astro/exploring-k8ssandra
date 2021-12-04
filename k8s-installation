@@ -35,7 +35,6 @@ Update your helm repository listing:
 helm repo update
 
 Start k8ssandra:
-
 helm install -f k8ssandra.yaml k8ssandra k8ssandra/k8ssandra
 
 Verify installation:
