@@ -37,6 +37,10 @@ helm repo update
 Start k8ssandra:
 helm install -f k8ssandra.yaml k8ssandra k8ssandra/k8ssandra
 
+To resolve storageclass issue with current docker-desktop: https://github.com/k8ssandra/k8ssandra/issues/143#issuecomment-773446285
+
+helm install -f k8ssandra.yaml k8ssandra k8ssandra/k8ssandra  --set cassandra.cassandraLibDirVolume.storageClass=hostpath
+
 Verify installation:
 kubectl get pods
 kubectl get cassandradatacenters
