@@ -1,1 +1,11 @@
-Quickstart guide to access k8ssandra
+Quickstart guide to access k8ssandra:
+
+kubectl get pods
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.username}" | base64 --decode ; echo
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.password}" | base64 --decode ; echo
+
+Run nodetool commands:
+
+kubectl exec -it k8ssandra-dc1-default-sts-0 -c cassandra -- nodetool -u <k8ssandra-username> -pw <k8ssandra-password> status
+kubectl exec -it k8ssandra-dc1-default-sts-0 -c cassandra -- nodetool -u <k8ssandra-username> -pw <k8ssandra-password> ring
+kubectl exec -it k8ssandra-dc1-default-sts-0 -c cassandra -- nodetool -u <k8ssandra-username> -pw <k8ssandra-password> info
