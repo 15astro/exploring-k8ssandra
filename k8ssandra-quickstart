@@ -9,3 +9,19 @@ Run nodetool commands:
 kubectl exec -it k8ssandra-dc1-default-sts-0 -c cassandra -- nodetool -u <k8ssandra-username> -pw <k8ssandra-password> status
 kubectl exec -it k8ssandra-dc1-default-sts-0 -c cassandra -- nodetool -u <k8ssandra-username> -pw <k8ssandra-password> ring
 kubectl exec -it k8ssandra-dc1-default-sts-0 -c cassandra -- nodetool -u <k8ssandra-username> -pw <k8ssandra-password> info
+
+Access K8ssandra components:
+Get list of services:
+kubectl get services
+
+Enable port forwarding to access Grafana, prometheus and Repear:
+
+kubectl port-forward svc/k8ssandra-grafana 9191:80 &
+kubectl port-forward svc/prometheus-operated 9292:9090 &
+kubectl port-forward svc/k8ssandra-reaper-reaper-service 9393:8080 &
+
+The K8ssandra services are now available at:
+Prometheus: http://127.0.0.1:9292
+Grafana: http://127.0.0.1:9191
+Reaper: http://127.0.0.1:9393/webui
+
