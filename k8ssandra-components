@@ -1,4 +1,8 @@
-Stargate
+Stargate:
+API extensions: Currently there are extensions for CQL, and REST and GraphQL APIs for CRUD access to table data.
+Persistence extensions: The extensions for Cassandra 3.11 and 4.0, DSE 6.8
+Authentication extensions: This extension stores generated access tokens in the database.
+
 Cass-operator
 Medusa
 Repear
