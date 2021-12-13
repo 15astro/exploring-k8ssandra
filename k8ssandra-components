@@ -3,7 +3,10 @@ API extensions: Currently there are extensions for CQL, and REST and GraphQL API
 Persistence extensions: The extensions for Cassandra 3.11 and 4.0, DSE 6.8
 Authentication extensions: This extension stores generated access tokens in the database.
 
-Cass-operator
-Medusa
-Repear
-Metrics-collector
+Cass-operator: Deploys and manages Cassandra in k8ssandra. A Pod has 3 containers: api management, cassandra and config manager
+Medusa: Backups and restore of cassandra cluster. Cloud storage integrations are supported
+Repear: Manages repairs, schedule repairs, monitor repairs
+Metrics-collector: MCAC - Metrics collector for apache cassandra. Collects cassandra & OS stats
+
+kubebuilder:
+https://github.com/kubernetes-sigs/kubebuilder 
