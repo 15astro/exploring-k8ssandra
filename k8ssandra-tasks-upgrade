@@ -1,0 +1,23 @@
+Upgrade existing repo to latest release:
+
+helm repo update
+
+Upgrade with node scaling:
+
+cp k8ssandra.yaml k8ssandra-scale-node.yaml
+
+Update:
+
+ datacenters:
+  - name: dc1
+    size: 1
+
+to
+
+ datacenters:
+  - name: dc1
+    size: 2 
+
+helm upgrade -f k8ssandra-scale-node.yaml k8ssandra k8ssandra/k8ssandra
+
+kubectl get pods | grep dc1-default
