@@ -1,0 +1,14 @@
+Cassandra security:
+K8ssandra disables and does not use the default superuser, cassandra
+Cassandra superuser: {cassandra-clustername}-superuser
+You can set Cassandra superuser: cassandra.auth.superuser.username
+
+To get the current super-user from the secrets: kubectl get secret k8ssandra-superuser -o jsonpath="{.data.username}" | base64 --decode ; echo
+To get the password for super-user from the secrets: kubectl get secret k8ssandra-superuser -o jsonpath="{.data.password}" | base64 --decode ; echo
+
+Stargate security:
+To get the stargate k8ssandra user: k8ssandra % kubectl get secret k8ssandra-stargate -o jsonpath="{.data.username}" | base64 --decode; echo
+To get the stargate k8ssandra password: k8ssandra % kubectl get secret k8ssandra-stargate -o jsonpath="{.data.username}" | base64 --decode; echo
+
+To set the stargate k8ssandra user: stargate.cassandraUser.username
+
