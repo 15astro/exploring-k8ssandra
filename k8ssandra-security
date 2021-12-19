@@ -12,3 +12,15 @@ To get the stargate k8ssandra password: k8ssandra % kubectl get secret k8ssandra
 
 To set the stargate k8ssandra user: stargate.cassandraUser.username
 
+Reaper security:
+To get the reaper k8ssandra user: k8ssandra % kubectl get secret k8ssandra-reaper -o jsonpath="{.data.username}" | base64 --decode; echo
+To get the reaper k8ssandra password: k8ssandra % kubectl get secret k8ssandra-reaper -o jsonpath="{.data.username}" | base64 --decode; echo
+
+To set the reaper k8ssandra username: reaper.cassandraUser.username
+
+Medusa security:
+
+To get the medusa k8ssandra user: k8ssandra % kubectl get secret k8ssandra-medusa -o jsonpath="{.data.username}" | base64 --decode; echo
+To get the medusa k8ssandra password: k8ssandra % kubectl get secret k8ssandra-medusa -o jsonpath="{.data.username}" | base64 --decode; echo
+
+To set the medusa k8ssandra username: medusa.CassandraUser.username
