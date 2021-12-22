@@ -24,3 +24,22 @@ To get the medusa k8ssandra user: k8ssandra % kubectl get secret k8ssandra-medus
 To get the medusa k8ssandra password: k8ssandra % kubectl get secret k8ssandra-medusa -o jsonpath="{.data.username}" | base64 --decode; echo
 
 To set the medusa k8ssandra username: medusa.CassandraUser.username
+
+Custom sercrets for k8ssandra components:
+Secrets must have username and password
+
+Cassandra - cassandra.auth.superuser.secret
+Stargate - stargate.cassandraUser.secret
+Reaper - reaper.cassandraUser.secret
+Medusa - medusa.cassandraUser.secret
+
+K8ssandra and JMX:
+By default the JMX is only locally enabled by Cassandra with LOCAL_JMX=yes in cassandra-env.sh
+k8ssandra sets LOCAL_JMX to no.
+
+By default Cassandra sets the JMX credentials in jmxremote.password. k8ssandra creates 2 JMX creds:
+1. For Reaper: reaper.jmx.username, reaper.jmx.secret
+2. For superuser: same as cassandra
+
+
+
