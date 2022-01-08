@@ -8,12 +8,48 @@ Steps:
    - repo to enable backup: backup-restore-values.yaml
    - sample cassandra data: test_data.cql
 3. Create copy of medusa-bucket-key.yaml to my-medusa-bucket-key.yaml and add s3 keys
-4. Update backup-restore-values.yaml to include s3 bucket name and region
-3. Create secret:
+4. Create IAM policy to allow access to list and upload to s3 bucket
+5. Assing newly created policy to the user for which access-key and secret key was generated
+6. Update backup-restore-values.yaml to include s3 bucket name and region
+7. Create secret:
    kubectl apply -f my-medusa-bucket-key.yaml
    
-4. Upgrade existing k8ssandra installation to enable medusa backups:
+8. Upgrade existing k8ssandra installation to enable medusa backups:
    helm install demo k8ssandra/k8ssandra -f my-backup-restore-values.yaml --set cassandra.cassandraLibDirVolume.storageClass=hostpath
+
+9. Get secrets for username and password for cassandra:
+   username=$(kubectl get secret demo-superuser -o jsonpath="{.data.username}" | base64 --decode)
+   password=$(kubectl get secret demo-superuser -o jsonpath="{.data.password}" | base64 --decode)
+
+10. Load data to cassandra using cqlsh:
+   kubectl exec -it demo-dc1-default-sts-0 -c cassandra -- cqlsh -u $username -p $password
+   CREATE KEYSPACE medusa_test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+   USE medusa_test;
+   CREATE TABLE users (email text primary key, name text, state text);
+   insert into users (email, name, state) values ('alice@example.com', 'Alice Smith', 'TX');
+   insert into users (email, name, state) values ('bob@example.com', 'Bob Jones', 'VA');
+   insert into users (email, name, state) values ('carol@example.com', 'Carol Jackson', 'CA');
+   insert into users (email, name, state) values ('david@example.com', 'David Yang', 'NV');
+11. Create backup:
+   helm install test k8ssandra/backup --set name=test,cassandraDatacenter.name=dc1
+
+12. Check snapshot on s3
+   helm install test k8ssandra/backup --set name=test,cassandraDatacenter.name=dc1
+
+13. Truncate table users from keyspace medusa-test
+   
+14. Restore backup 
+    helm install restore-test k8ssandra/restore --set name=helm-test,backup.name=test,cassandraDatacenter.name=dc1
+
+15. Check restore logs
+    kubectl logs demo-dc1-default-sts-0 -c medusa-restore
+
+16. Verify data after restore:
+    kubectl exec -it demo-dc1-default-sts-0 -c cassandra -- cqlsh -u $username -p $password
+    cqlsh> use medusa_test ;
+    cqlsh> SELECT * FROM users;
+
+
 
 
 
