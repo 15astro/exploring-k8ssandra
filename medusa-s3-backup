@@ -1,0 +1,11 @@
+#Backup and restore Cassandra with Amazon S3 using Medusa
+
+Steps:
+
+1. Create s3 bucket
+2. Download templates for secret, helm repo and sample cql data from here: https://docs.k8ssandra.io/tasks/backup-restore/amazon-s3/#tools
+   - secret: medusa-bucket-key.yaml
+   - repo to enable backup: backup-restore-values.yaml
+   - sample cassandra data: test_data.cql
+3. 
+
