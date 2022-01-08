@@ -7,5 +7,14 @@ Steps:
    - secret: medusa-bucket-key.yaml
    - repo to enable backup: backup-restore-values.yaml
    - sample cassandra data: test_data.cql
-3. 
+3. Create copy of medusa-bucket-key.yaml to my-medusa-bucket-key.yaml and add s3 keys
+4. Update backup-restore-values.yaml to include s3 bucket name and region
+3. Create secret:
+   kubectl apply -f my-medusa-bucket-key.yaml
+   
+4. Upgrade existing k8ssandra installation to enable medusa backups:
+   helm upgrade demo k8ssandra/k8ssandra -f my-backup-restore-values.yaml
+
+
+
 
