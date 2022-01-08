@@ -13,8 +13,7 @@ Steps:
    kubectl apply -f my-medusa-bucket-key.yaml
    
 4. Upgrade existing k8ssandra installation to enable medusa backups:
-   helm upgrade demo k8ssandra/k8ssandra -f my-backup-restore-values.yaml
-
+   helm install demo k8ssandra/k8ssandra -f my-backup-restore-values.yaml --set cassandra.cassandraLibDirVolume.storageClass=hostpath
 
 
 
