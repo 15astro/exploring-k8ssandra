@@ -1,3 +1,15 @@
 https://docs.k8ssandra.io/tasks/repair/
 
+Start k8ssandra chart:
+helm install demo k8ssandra/k8ssandra -f my-backup-restore-values.yaml --set cassandra.cassandraLibDirVolume.storageClass=hostpath
+
+Configure ingress controller:
+helm upgrade demo k8ssandra/k8ssandra -f traefik.values.yaml
+
+Enable port forwarding:
+kubectl port-forward svc/demo-reaper-reaper-service 9393:8080 &
+
+Access repear using web browser:
+http://localhost:9393/webui 
+
 
