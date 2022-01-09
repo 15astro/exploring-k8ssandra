@@ -4,7 +4,7 @@ Configure Port Forwarding:
 
 kubectl port-forward svc/k8ssandra-grafana 9191:80 &
 kubectl port-forward svc/prometheus-operated 9292:9090 &
-kubectl port-forward svc/k8ssandra-reaper-reaper-service 9191:8080 &
+kubectl port-forward svc/k8ssandra-reaper-reaper-service 9393:8080 &
 
 Different ways to install K8s:
 
